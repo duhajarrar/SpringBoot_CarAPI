@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -44,16 +45,20 @@ public class CarService {
     public List<Car> getAllCar()
     {
         List<Car> carList = new ArrayList<Car>();
-        carRepository.findAll().forEach(person -> carList.add(person));
+        carRepository.findAll().forEach(car -> carList.add(car));
         return carList;
     }
 
     public Car getCarById(int id)
     {
-//        List<Car> carList = new ArrayList<Car>();
-//        carRepository.findByCountryOfOrigin(countryOfOrigin).forEach(car -> carList.add(car));
-//        return carList;
+        System.out.println(carRepository.findById(id).get()+" >>>> "+id);
         return carRepository.findById(id).get();
+    }
+
+    public List<Car> getCarByCountryOfOrigin(String countryOfOrigin) {
+        List<Car> carList = new ArrayList<Car>();
+        carRepository.findByCountryOfOrigin(countryOfOrigin).forEach(car -> carList.add(car));
+        return carList;
     }
 
 //    public ResponseEntity<Map<String, Object>> paging(String countryOfOrigin,int page,int size){

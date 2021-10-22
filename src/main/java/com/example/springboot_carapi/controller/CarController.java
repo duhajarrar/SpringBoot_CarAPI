@@ -3,6 +3,8 @@ package com.example.springboot_carapi.controller;
 import com.example.springboot_carapi.Model.Car;
 import com.example.springboot_carapi.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,15 +22,17 @@ public class CarController {
     @GetMapping("/")
     public List<Car> InitDB() throws IOException {
         System.out.println("Connnnnnnnnnntroller *************");
-        //carService.initCarDB();
         return carService.getAllCar();
-        //carService.paging("Germany",1,100);
     }
 
     @GetMapping("/car/{id}")
-    public void findById(@PathVariable("id") int id,@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "20") int size) {
+    public ResponseEntity<?> findById(@PathVariable("id") int id) {
         System.out.println("Connnnnnnnnnntroller carrrrr *************"+id);
-        carService.getCarById(id);
+        return ResponseEntity.status(HttpStatus.OK).body( carService.getCarById(id));
     }
-
+    @GetMapping("/carsOrigin/{countryOfOrigin}")
+    public List<Car> findByCountryOfOrigin(@PathVariable("countryOfOrigin") String countryOfOrigin, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int size) {
+        System.out.println("Connnnnnnnnnntroller carrrrr *************"+countryOfOrigin);
+        return carService.getCarByCountryOfOrigin(countryOfOrigin);
+    }
 }
