@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -55,10 +56,8 @@ public class CarService {
         return carRepository.findById(id).get();
     }
 
-    public List<Car> getCarByCountryOfOrigin(String countryOfOrigin) {
-        List<Car> carList = new ArrayList<Car>();
-        carRepository.findByCountryOfOrigin(countryOfOrigin).forEach(car -> carList.add(car));
-        return carList;
+    public List<Car> getCarByCountryOfOrigin(String countryOfOrigin,int page,int size) {
+        return carRepository.findByCountryOfOrigin(countryOfOrigin,PageRequest.of(page,size)).stream().collect(Collectors.toList());
     }
 
 //    public ResponseEntity<Map<String, Object>> paging(String countryOfOrigin,int page,int size){
@@ -86,7 +85,6 @@ public class CarService {
 //            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 //        }
 //    }
-
 
 
 }
