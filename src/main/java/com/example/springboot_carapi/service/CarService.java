@@ -56,35 +56,35 @@ public class CarService {
         return carRepository.findById(id).get();
     }
 
-    public Page<Car> getCarByCountryOfOrigin(String countryOfOrigin,Pageable page) {
-        return carRepository.findByCountryOfOrigin(countryOfOrigin,page);
-    }
-
-//    public ResponseEntity<Map<String, Object>> paging(String countryOfOrigin,int page,int size){
-//        try {
-//            List<Car> cars = new ArrayList<Car>();
-//            Pageable paging = PageRequest.of(page, size);
-//            Page<Car> pageTuts;
-//            if (countryOfOrigin == null){
-//                pageTuts = carRepository.findAll(paging);
-//                System.out.println("************ find all ***************");
-//            }else {
-//                pageTuts = carRepository.findByCountryOfOrigin(countryOfOrigin, paging);
-//                System.out.println("************ "+countryOfOrigin+" *************** page="+page+" size="+size);
-//            }
-//            cars = pageTuts.getContent();
-//            System.out.println(cars+"++++++++++++++++++ len="+cars.size());
-//            Map<String, Object> response = new HashMap<>();
-//            response.put("cars", cars);
-//            response.put("currentPage", pageTuts.getNumber());
-//            response.put("totalItems", pageTuts.getTotalElements());
-//            response.put("totalPages", pageTuts.getTotalPages());
-//
-//            return new ResponseEntity<>(response, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
+//    public Page<Car> getCarByCountryOfOrigin(String countryOfOrigin,Pageable page) {
+//        return carRepository.findByCountryOfOrigin(countryOfOrigin,page);
 //    }
+
+    public ResponseEntity<Map<String, Object>> getCarByCountryOfOrigin(String countryOfOrigin,int page,int size){
+        try {
+            List<Car> cars = new ArrayList<Car>();
+            Pageable paging = PageRequest.of(page, size);
+            Page<Car> pageTuts;
+            if (countryOfOrigin == null){
+                pageTuts = carRepository.findAll(paging);
+                System.out.println("************ find all ***************");
+            }else {
+                pageTuts = carRepository.findByCountryOfOrigin(countryOfOrigin, paging);
+                System.out.println("************ "+countryOfOrigin+" *************** page="+page+" size="+size);
+            }
+            cars = pageTuts.getContent();
+            System.out.println(cars+"++++++++++++++++++ len="+cars.size());
+            Map<String, Object> response = new HashMap<>();
+            response.put("cars", cars);
+            response.put("currentPage", pageTuts.getNumber());
+            response.put("totalItems", pageTuts.getTotalElements());
+            response.put("totalPages", pageTuts.getTotalPages());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }
