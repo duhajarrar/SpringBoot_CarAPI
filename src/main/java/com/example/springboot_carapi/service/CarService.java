@@ -56,8 +56,8 @@ public class CarService {
         return carRepository.findById(id).get();
     }
 
-    public List<Car> getCarByCountryOfOrigin(String countryOfOrigin,int page,int size) {
-        return carRepository.findByCountryOfOrigin(countryOfOrigin,PageRequest.of(page,size)).stream().collect(Collectors.toList());
+    public Page<Car> getCarByCountryOfOrigin(String countryOfOrigin,Pageable page) {
+        return carRepository.findByCountryOfOrigin(countryOfOrigin,page);
     }
 
 //    public ResponseEntity<Map<String, Object>> paging(String countryOfOrigin,int page,int size){

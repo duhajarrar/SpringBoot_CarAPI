@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Repository
 public interface CarRepository extends PagingAndSortingRepository<Car,Integer> {
-    List<Car> findByCountryOfOrigin(String countryOfOrigin,Pageable p);
+    Page<Car> findByCountryOfOrigin(String countryOfOrigin,Pageable p);
 }
 
 
